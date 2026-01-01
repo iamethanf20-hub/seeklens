@@ -1,0 +1,656 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		26644E0F2EA98D340038CA11 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 26644E0E2EA98D340038CA11 /* GoogleMobileAds */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		26B515592EA5DF2A000774A6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 26FA3AE02E61200A00E5D887 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 26B5154B2EA5DF23000774A6;
+			remoteInfo = Findly_iOS;
+		};
+		26B515632EA5DF2A000774A6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 26FA3AE02E61200A00E5D887 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 26B5154B2EA5DF23000774A6;
+			remoteInfo = Findly_iOS;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		26B5154C2EA5DF23000774A6 /* Findly_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Findly_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		26B515582EA5DF2A000774A6 /* Findly_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Findly_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		26B515622EA5DF2A000774A6 /* Findly_iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Findly_iOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		26644DE22EA8201E0038CA11 /* Exceptions for "Findly_iOS" folder in "Findly_iOS" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 26B5154B2EA5DF23000774A6 /* Findly_iOS */;
+		};
+		26B5E7FD2EB179CA003E661D /* Exceptions for "Findly_iOS" folder in "Findly_iOSTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets.xcassets,
+			);
+			target = 26B515572EA5DF2A000774A6 /* Findly_iOSTests */;
+		};
+		26B5E7FE2EB179CA003E661D /* Exceptions for "Findly_iOS" folder in "Findly_iOSUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets.xcassets,
+			);
+			target = 26B515612EA5DF2A000774A6 /* Findly_iOSUITests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		26B5154D2EA5DF23000774A6 /* Findly_iOS */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				26644DE22EA8201E0038CA11 /* Exceptions for "Findly_iOS" folder in "Findly_iOS" target */,
+				26B5E7FD2EB179CA003E661D /* Exceptions for "Findly_iOS" folder in "Findly_iOSTests" target */,
+				26B5E7FE2EB179CA003E661D /* Exceptions for "Findly_iOS" folder in "Findly_iOSUITests" target */,
+			);
+			path = Findly_iOS;
+			sourceTree = "<group>";
+		};
+		26B5155B2EA5DF2A000774A6 /* Findly_iOSTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Findly_iOSTests;
+			sourceTree = "<group>";
+		};
+		26B515652EA5DF2A000774A6 /* Findly_iOSUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Findly_iOSUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		26B515492EA5DF23000774A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26644E0F2EA98D340038CA11 /* GoogleMobileAds in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		26B515552EA5DF2A000774A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		26B5155F2EA5DF2A000774A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		26B515452EA5D7C4000774A6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		26FA3ADF2E61200A00E5D887 = {
+			isa = PBXGroup;
+			children = (
+				26B5154D2EA5DF23000774A6 /* Findly_iOS */,
+				26B5155B2EA5DF2A000774A6 /* Findly_iOSTests */,
+				26B515652EA5DF2A000774A6 /* Findly_iOSUITests */,
+				26B515452EA5D7C4000774A6 /* Frameworks */,
+				26FA3AE92E61200A00E5D887 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		26FA3AE92E61200A00E5D887 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				26B5154C2EA5DF23000774A6 /* Findly_iOS.app */,
+				26B515582EA5DF2A000774A6 /* Findly_iOSTests.xctest */,
+				26B515622EA5DF2A000774A6 /* Findly_iOSUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		26B5154B2EA5DF23000774A6 /* Findly_iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 26B5156A2EA5DF2A000774A6 /* Build configuration list for PBXNativeTarget "Findly_iOS" */;
+			buildPhases = (
+				26B515482EA5DF23000774A6 /* Sources */,
+				26B515492EA5DF23000774A6 /* Frameworks */,
+				26B5154A2EA5DF23000774A6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				26B5154D2EA5DF23000774A6 /* Findly_iOS */,
+			);
+			name = Findly_iOS;
+			packageProductDependencies = (
+				26644E0E2EA98D340038CA11 /* GoogleMobileAds */,
+			);
+			productName = Findly_iOS;
+			productReference = 26B5154C2EA5DF23000774A6 /* Findly_iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		26B515572EA5DF2A000774A6 /* Findly_iOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 26B5156D2EA5DF2A000774A6 /* Build configuration list for PBXNativeTarget "Findly_iOSTests" */;
+			buildPhases = (
+				26B515542EA5DF2A000774A6 /* Sources */,
+				26B515552EA5DF2A000774A6 /* Frameworks */,
+				26B515562EA5DF2A000774A6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				26B5155A2EA5DF2A000774A6 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				26B5155B2EA5DF2A000774A6 /* Findly_iOSTests */,
+			);
+			name = Findly_iOSTests;
+			packageProductDependencies = (
+			);
+			productName = Findly_iOSTests;
+			productReference = 26B515582EA5DF2A000774A6 /* Findly_iOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		26B515612EA5DF2A000774A6 /* Findly_iOSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 26B515702EA5DF2A000774A6 /* Build configuration list for PBXNativeTarget "Findly_iOSUITests" */;
+			buildPhases = (
+				26B5155E2EA5DF2A000774A6 /* Sources */,
+				26B5155F2EA5DF2A000774A6 /* Frameworks */,
+				26B515602EA5DF2A000774A6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				26B515642EA5DF2A000774A6 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				26B515652EA5DF2A000774A6 /* Findly_iOSUITests */,
+			);
+			name = Findly_iOSUITests;
+			packageProductDependencies = (
+			);
+			productName = Findly_iOSUITests;
+			productReference = 26B515622EA5DF2A000774A6 /* Findly_iOSUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		26FA3AE02E61200A00E5D887 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					26B5154B2EA5DF23000774A6 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					26B515572EA5DF2A000774A6 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 26B5154B2EA5DF23000774A6;
+					};
+					26B515612EA5DF2A000774A6 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 26B5154B2EA5DF23000774A6;
+					};
+				};
+			};
+			buildConfigurationList = 26FA3AE32E61200A00E5D887 /* Build configuration list for PBXProject "Findly" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 26FA3ADF2E61200A00E5D887;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				26644E0D2EA974D00038CA11 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 26FA3AE92E61200A00E5D887 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				26B5154B2EA5DF23000774A6 /* Findly_iOS */,
+				26B515572EA5DF2A000774A6 /* Findly_iOSTests */,
+				26B515612EA5DF2A000774A6 /* Findly_iOSUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		26B5154A2EA5DF23000774A6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		26B515562EA5DF2A000774A6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		26B515602EA5DF2A000774A6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		26B515482EA5DF23000774A6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		26B515542EA5DF2A000774A6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		26B5155E2EA5DF2A000774A6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		26B5155A2EA5DF2A000774A6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 26B5154B2EA5DF23000774A6 /* Findly_iOS */;
+			targetProxy = 26B515592EA5DF2A000774A6 /* PBXContainerItemProxy */;
+		};
+		26B515642EA5DF2A000774A6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 26B5154B2EA5DF23000774A6 /* Findly_iOS */;
+			targetProxy = 26B515632EA5DF2A000774A6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		26B5156B2EA5DF2A000774A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = Findly_iOS/Findly_iOS.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = D9FX6ZBL3N;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Findly_iOS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SeekLens;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs access to the camera to capture images for detection.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.1.0;
+				"MARKETING_VERSION[sdk=iphoneos*]" = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ethanfeng.findly;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		26B5156C2EA5DF2A000774A6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = Findly_iOS/Findly_iOS.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = D9FX6ZBL3N;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Findly_iOS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SeekLens;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs access to the camera to capture images for detection.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.1.0;
+				"MARKETING_VERSION[sdk=iphoneos*]" = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ethanfeng.findly;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		26B5156E2EA5DF2A000774A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Ethan-Feng.Findly-iOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Findly_iOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Findly_iOS";
+			};
+			name = Debug;
+		};
+		26B5156F2EA5DF2A000774A6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Ethan-Feng.Findly-iOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Findly_iOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Findly_iOS";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		26B515712EA5DF2A000774A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Ethan-Feng.Findly-iOSUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Findly_iOS;
+			};
+			name = Debug;
+		};
+		26B515722EA5DF2A000774A6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Ethan-Feng.Findly-iOSUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Findly_iOS;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		26FA3B082E61200D00E5D887 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		26FA3B092E61200D00E5D887 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		26B5156A2EA5DF2A000774A6 /* Build configuration list for PBXNativeTarget "Findly_iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				26B5156B2EA5DF2A000774A6 /* Debug */,
+				26B5156C2EA5DF2A000774A6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		26B5156D2EA5DF2A000774A6 /* Build configuration list for PBXNativeTarget "Findly_iOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				26B5156E2EA5DF2A000774A6 /* Debug */,
+				26B5156F2EA5DF2A000774A6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		26B515702EA5DF2A000774A6 /* Build configuration list for PBXNativeTarget "Findly_iOSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				26B515712EA5DF2A000774A6 /* Debug */,
+				26B515722EA5DF2A000774A6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		26FA3AE32E61200A00E5D887 /* Build configuration list for PBXProject "Findly" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				26FA3B082E61200D00E5D887 /* Debug */,
+				26FA3B092E61200D00E5D887 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		26644E0D2EA974D00038CA11 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.12.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		26644E0E2EA98D340038CA11 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 26644E0D2EA974D00038CA11 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 26FA3AE02E61200A00E5D887 /* Project object */;
+}
