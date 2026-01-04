@@ -252,12 +252,12 @@ struct ContentView: View {
                         let magnify = MagnificationGesture()
                             .onChanged { v in
                                 let proposed = baseZoom * v
-                                let clamped = min(max(proposed, 1.0), 6.0)
+                                let clamped = min(max(proposed, 1.0), 4.0)
                                 if clamped != zoom { zoom = clamped }
                             }
                             .onEnded { v in
                                 let proposed = baseZoom * v
-                                baseZoom = min(max(proposed, 1.0), 6.0)
+                                baseZoom = min(max(proposed, 1.0), 4.0)
                             }
 
                         let drag = DragGesture()
@@ -273,7 +273,8 @@ struct ContentView: View {
                         LiveTextPreviewView(
                             filterQuery: liveTextFilter,
                             matchMode: liveTextMatch,
-                            showPerWord: liveTextPerWord
+                            showPerWord: liveTextPerWord,
+                            cameraZoom: zoom  // ⬅️ NEW: Pass zoom to camera
                         )
                             .scaleEffect(zoom)
                             .offset(contentOffset)
@@ -1050,12 +1051,12 @@ struct FullscreenLiveTextView: View {
                 let magnify = MagnificationGesture()
                     .onChanged { v in
                         let proposed = baseZoom * v
-                        let clamped = min(max(proposed, 1.0), 6.0)
+                        let clamped = min(max(proposed, 1.0), 4.0)
                         if clamped != zoom { zoom = clamped }
                     }
                     .onEnded { v in
                         let proposed = baseZoom * v
-                        baseZoom = min(max(proposed, 1.0), 6.0)
+                        baseZoom = min(max(proposed, 1.0), 4.0)
                     }
 
                 let drag = DragGesture()
@@ -1073,7 +1074,8 @@ struct FullscreenLiveTextView: View {
                         filterQuery: filterQuery,
                         matchMode: matchMode,
                         showPerWord: showPerWord,
-                        clipCorners: false
+                        clipCorners: false,
+                        cameraZoom: zoom  // ⬅️ NEW: Pass zoom to camera
                     )
                         .scaleEffect(zoom)
                         .offset(contentOffset)

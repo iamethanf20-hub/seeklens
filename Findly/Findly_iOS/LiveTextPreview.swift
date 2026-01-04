@@ -51,7 +51,11 @@ final class LiveTextPreviewManager: NSObject, ObservableObject {
     @Published var detections: [LiveTextDetection] = []
     @Published var errorMessage: String?
     @Published var isSessionRunning = false
+    @Published var currentZoomFactor: CGFloat = 1.0  // ⬅️ NEW: Track current zoom
+    
     nonisolated let session = AVCaptureSession()
+    private var captureDevice: AVCaptureDevice?  // ⬅️ NEW: Store device reference
+    private let maxZoomFactor: CGFloat = 4.0  // ⬅️ NEW: Max zoom limit
     
     private let queue = DispatchQueue(label: "LiveTextPreviewManager.queue")
     private let lastRequestTime = ThreadSafeDate()
@@ -64,6 +68,35 @@ final class LiveTextPreviewManager: NSObject, ObservableObject {
     func setup() {
         Task.detached { [weak self] in
             await self?.configureSession()
+        }
+    }
+    
+    // ⬅️ NEW: Method to set camera zoom
+    func setZoom(_ factor: CGFloat) {
+        guard let device = captureDevice else {
+            print("⚠️ No capture device available for zoom")
+            return
+        }
+        
+        // Clamp zoom factor between 1.0 and min(maxZoomFactor, device's max)
+        let deviceMax = device.activeFormat.videoMaxZoomFactor
+        let clampedFactor = min(max(factor, 1.0), min(maxZoomFactor, deviceMax))
+        
+        print("📸 Setting zoom to \(clampedFactor) (requested: \(factor), device max: \(deviceMax))")
+        
+        do {
+            try device.lockForConfiguration()
+            
+            // Use smooth ramping for better user experience
+            device.ramp(toVideoZoomFactor: clampedFactor, withRate: 4.0)
+            
+            device.unlockForConfiguration()
+            
+            Task { @MainActor [weak self] in
+                self?.currentZoomFactor = clampedFactor
+            }
+        } catch {
+            print("⚠️ Failed to set zoom: \(error)")
         }
     }
     
@@ -85,6 +118,12 @@ final class LiveTextPreviewManager: NSObject, ObservableObject {
         }
         
         print("📸 Found camera device: \(device.localizedName)")
+        print("📸 Max zoom factor: \(device.activeFormat.videoMaxZoomFactor)")
+        
+        // ⬅️ NEW: Store device reference for zoom control
+        await MainActor.run { [weak self] in
+            self?.captureDevice = device
+        }
         
         guard let input = try? AVCaptureDeviceInput(device: device) else {
             print("⚠️ Failed to create camera input")
@@ -121,6 +160,9 @@ final class LiveTextPreviewManager: NSObject, ObservableObject {
             if device.isWhiteBalanceModeSupported(.continuousAutoWhiteBalance) {
                 device.whiteBalanceMode = .continuousAutoWhiteBalance
             }
+            
+            // ⬅️ NEW: Set initial zoom to 1.0
+            device.videoZoomFactor = 1.0
             
             device.unlockForConfiguration()
             print("✅ Configured camera settings")
@@ -299,7 +341,8 @@ struct LiveTextPreviewView: View {
     let filterQuery: String
     let matchMode: MatchMode
     let showPerWord: Bool
-    var clipCorners: Bool = true  // ⬅️ NEW: Control whether to clip corners
+    var clipCorners: Bool = true
+    var cameraZoom: CGFloat = 1.0  // ⬅️ NEW: Camera zoom parameter
     
     @State private var hasRequestedPermission = false
     
@@ -512,9 +555,12 @@ struct LiveTextPreviewView: View {
             }
         }
         .background(Color.black)
-        // ⬇️ CHANGED: Conditional clipping based on clipCorners parameter
         .if(clipCorners) { view in
             view.clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+        }
+        // ⬅️ NEW: Monitor zoom changes and update camera
+        .onChange(of: cameraZoom) { newZoom in
+            manager.setZoom(newZoom)
         }
         .onAppear {
             guard !hasRequestedPermission else { return }
@@ -523,15 +569,15 @@ struct LiveTextPreviewView: View {
             print("🎬 LiveTextPreviewView appeared, requesting camera permission...")
             
             AVCaptureDevice.requestAccess(for: .video) { granted in
-                print("📹 Camera permission granted: \(granted)")
-                if granted {
-                    manager.setup()
-                    // Give setup a moment to complete before starting
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        manager.start()
-                    }
-                } else {
-                    Task { @MainActor in
+                Task { @MainActor in
+                    print("📹 Camera permission granted: \(granted)")
+                    if granted {
+                        manager.setup()
+                        // Give setup a moment to complete before starting
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            manager.start()
+                        }
+                    } else {
                         manager.errorMessage = "Camera access denied"
                     }
                 }
@@ -544,7 +590,7 @@ struct LiveTextPreviewView: View {
     }
 }
 
-// ⬇️ NEW: Helper extension for conditional view modifiers
+// ⬇️ Helper extension for conditional view modifiers
 extension View {
     @ViewBuilder
     func `if`<Transform: View>(_ condition: Bool, transform: (Self) -> Transform) -> some View {
