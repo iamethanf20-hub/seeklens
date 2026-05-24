@@ -1,21 +1,15 @@
 //  OWLBoxOverlay.swift
 //  Findly
-//
-//  Created by Lingling on 9/2/25.
-//
 
 import SwiftUI
 
 struct OWLDetection: Identifiable, Hashable {
     let id = UUID()
     let label: String
-    let score: CGFloat     // 0..1
-    let box: [CGFloat]     // [x, y, w, h] in *pixel* space of the source image
+    let score: CGFloat
+    let box: [CGFloat]     // [x, y, w, h] in pixel space of the image you display
 }
 
-// MARK: - Arrow primitives
-
-/// Straight shaft from start -> end.
 struct ArrowShaftShape: Shape {
     var start: CGPoint
     var end: CGPoint
@@ -27,7 +21,6 @@ struct ArrowShaftShape: Shape {
     }
 }
 
-/// Filled triangular arrowhead at `end`, oriented along vector (start->end).
 struct ArrowHeadShape: Shape {
     var start: CGPoint
     var end: CGPoint
@@ -52,80 +45,81 @@ struct ArrowHeadShape: Shape {
     }
 }
 
-// MARK: - Overlay
-
 struct OWLBoxOverlay: View {
-    let image: UIImage
-    let pixelSize: CGSize
+    let image: UIImage                 // MUST be the normalized image returned by OWLClient.detect
+    let pixelSize: CGSize              // server-reported width/height
     let detections: [OWLDetection]
     var minScore: Double = 0.15
     var showDebugFrame: Bool = false
     var showArrows: Bool = true
-    var fillContainer: Bool = true
-
-    /// How much larger boxes should appear (1.1 = 10% bigger)
+    var fillContainer: Bool = true     // kept for API compatibility
     var boxScale: CGFloat = 1.1
 
     var body: some View {
         GeometryReader { geo in
             let container = geo.size
 
-            // Compute drawn rect for the image (fill or aspect-fit)
-            let drawnRect: CGRect = {
-                if fillContainer {
-                    return CGRect(origin: .zero, size: container)
-                } else {
-                    let scale = min(
-                        container.width  / max(pixelSize.width,  1),
-                        container.height / max(pixelSize.height, 1)
-                    )
-                    let w = pixelSize.width  * scale
-                    let h = pixelSize.height * scale
-                    return CGRect(
-                        x: (container.width  - w) / 2,
-                        y: (container.height - h) / 2,
-                        width: w, height: h
-                    )
-                }
-            }()
+            // Aspect-FILL math: scale by max so image covers the container; crop overflow.
+            // Aspect-FIT math: scale by min so image fits inside; letterbox the slack.
+            let fitScale = min(
+                container.width  / max(pixelSize.width,  1),
+                container.height / max(pixelSize.height, 1)
+            )
+            let fillScale = max(
+                container.width  / max(pixelSize.width,  1),
+                container.height / max(pixelSize.height, 1)
+            )
+            let scale = fillContainer ? fillScale : fitScale
 
-            let sx = drawnRect.width  / max(pixelSize.width,  1) // pixels -> displayed points (x)
-            let sy = drawnRect.height / max(pixelSize.height, 1) // pixels -> displayed points (y)
+            // The full scaled image rect, before clipping. With fill, this is
+            // bigger than the container on one axis; with fit, smaller on one axis.
+            let scaledW = pixelSize.width  * scale
+            let scaledH = pixelSize.height * scale
+            let imageRect = CGRect(
+                x: (container.width  - scaledW) / 2,
+                y: (container.height - scaledH) / 2,
+                width: scaledW, height: scaledH
+            )
+
+            // The visible region (what's actually on screen). With fill, this
+            // equals the container; with fit, it equals imageRect.
+            let visibleRect = fillContainer
+                ? CGRect(origin: .zero, size: container)
+                : imageRect
 
             ZStack(alignment: .topLeading) {
-                // Image
                 Image(uiImage: image)
                     .resizable()
-                    .frame(width: drawnRect.width, height: drawnRect.height)
+                    .aspectRatio(contentMode: fillContainer ? .fill : .fit)
+                    .frame(width: container.width, height: container.height)
                     .clipped()
-                    .position(x: drawnRect.midX, y: drawnRect.midY)
 
                 if showDebugFrame {
                     Rectangle()
                         .stroke(.orange, style: StrokeStyle(lineWidth: 1, dash: [4,4]))
-                        .frame(width: drawnRect.width, height: drawnRect.height)
-                        .position(x: drawnRect.midX, y: drawnRect.midY)
+                        .frame(width: visibleRect.width, height: visibleRect.height)
+                        .position(x: visibleRect.midX, y: visibleRect.midY)
                 }
 
                 ForEach(detections.filter { $0.score >= minScore }) { d in
                     if d.box.count == 4 {
-                        // Original (pixel-space) rect
                         let rPx = CGRect(x: d.box[0], y: d.box[1], width: d.box[2], height: d.box[3])
 
-                        // Base displayed rect (before scaling)
+                        // Map pixel-space box -> screen-space using the SAME transform
+                        // as the displayed image: scale uniformly, then offset by
+                        // imageRect.origin (which is negative on the cropped axis
+                        // when filling, so off-screen pixels map off-screen).
                         let baseDisp = CGRect(
-                            x: drawnRect.minX + rPx.minX * sx,
-                            y: drawnRect.minY + rPx.minY * sy,
-                            width:  rPx.width  * sx,
-                            height: rPx.height * sy
+                            x: imageRect.minX + rPx.minX * scale,
+                            y: imageRect.minY + rPx.minY * scale,
+                            width:  rPx.width  * scale,
+                            height: rPx.height * scale
                         )
 
-                        // Enlarged rect around center (pure expression, no mutation)
                         let dw = baseDisp.width  * (boxScale - 1)
                         let dh = baseDisp.height * (boxScale - 1)
                         let disp = baseDisp.insetBy(dx: -dw / 2, dy: -dh / 2)
 
-                        // --- Box ---
                         ZStack(alignment: .topLeading) {
                             RoundedRectangle(cornerRadius: 6, style: .continuous)
                                 .fill(Color.orange.opacity(0.20))
@@ -138,14 +132,11 @@ struct OWLBoxOverlay: View {
                                 .position(x: disp.midX, y: disp.midY)
                         }
 
-                        // --- Arrow (solid red, angled; straight near borders) ---
                         if showArrows {
                             let arrowEnd = CGPoint(x: disp.midX, y: disp.minY)
-
-                            // Distances to borders around arrow end (within drawn image area)
-                            let spaceLeft  = arrowEnd.x - drawnRect.minX
-                            let spaceRight = drawnRect.maxX - arrowEnd.x
-                            let spaceAbove = arrowEnd.y - drawnRect.minY
+                            let spaceLeft  = arrowEnd.x - visibleRect.minX
+                            let spaceRight = visibleRect.maxX - arrowEnd.x
+                            let spaceAbove = arrowEnd.y - visibleRect.minY
 
                             let start: CGPoint = {
                                 let borderMargin: CGFloat = 24
@@ -154,22 +145,19 @@ struct OWLBoxOverlay: View {
                                     spaceRight < borderMargin ||
                                     spaceAbove < borderMargin
 
-                                // Shorter arrows: reduced from 42/36 to 24/20
                                 let maxHoriz: CGFloat = 24
                                 let maxVert: CGFloat  = 20
 
                                 if isNearBorder {
-                                    // Straight vertical up, clamped inside drawnRect
                                     let dy = min(maxVert, max(6, spaceAbove - 6))
                                     return CGPoint(x: arrowEnd.x, y: arrowEnd.y - dy)
                                 } else {
-                                    // Angled: toward side with more space, but shorter
                                     let goRight = spaceRight >= spaceLeft
                                     let dx = min(maxHoriz, (goRight ? spaceRight : spaceLeft) - 12)
                                     let dy = min(maxVert, spaceAbove - 12)
                                     let rawX = arrowEnd.x + (goRight ? dx : -dx)
-                                    let clampedX = min(max(drawnRect.minX + 8, rawX), drawnRect.maxX - 8)
-                                    let clampedY = max(drawnRect.minY + 8, arrowEnd.y - dy)
+                                    let clampedX = min(max(visibleRect.minX + 8, rawX), visibleRect.maxX - 8)
+                                    let clampedY = max(visibleRect.minY + 8, arrowEnd.y - dy)
                                     return CGPoint(x: clampedX, y: clampedY)
                                 }
                             }()
@@ -183,6 +171,8 @@ struct OWLBoxOverlay: View {
                     }
                 }
             }
+            .frame(width: container.width, height: container.height)
+            .clipped()
         }
         .contentShape(Rectangle())
     }

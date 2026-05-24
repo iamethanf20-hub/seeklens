@@ -595,7 +595,8 @@ struct ContentView: View {
 
     private var cameraSheet: some View {
         CameraPicker { img in
-            let newPhoto = PhotoItem(image: img)
+            let normalized = img.normalizedOrientation()
+            let newPhoto = PhotoItem(image: normalized)
             photos.append(newPhoto)
             selectedPhotoIndex = photos.count - 1
             
@@ -679,7 +680,7 @@ struct ContentView: View {
                     }
 
                 case .owl:
-                    let resp = try await owlClient.detect(image: img, query: query)
+                    let (resp, _) = try await owlClient.detect(image: img, query: query)
                     let mapped = resp.detections.map {
                         OWLDetection(label: $0.label, score: CGFloat($0.score), box: $0.box.map(CGFloat.init))
                     }
