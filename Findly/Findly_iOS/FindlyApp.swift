@@ -14,10 +14,11 @@ struct FindlyApp: App {
     @Environment(\.scenePhase) private var scenePhase
     
     init() {
-        // Your existing segmented control styling
+        // Segmented control styling — purple/blue brand palette
         let seg = UISegmentedControl.appearance()
-        seg.selectedSegmentTintColor = UIColor.systemOrange
-        seg.setTitleTextAttributes([.foregroundColor: UIColor.systemOrange], for: .normal)
+        let purple = UIColor(red: 0.55, green: 0.36, blue: 0.96, alpha: 1.0)
+        seg.selectedSegmentTintColor = purple
+        seg.setTitleTextAttributes([.foregroundColor: UIColor.label], for: .normal)
         seg.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
         
         // Request tracking permission FIRST with delay for UI to load

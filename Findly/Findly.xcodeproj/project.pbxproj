@@ -332,6 +332,8 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SeekLens;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs access to the camera to capture images for detection.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "SeekLens needs the microphone to hear your voice queries.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "SeekLens uses speech recognition to let you search by voice.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -375,6 +377,8 @@
 				INFOPLIST_KEY_CFBundleDisplayName = SeekLens;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs access to the camera to capture images for detection.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "SeekLens needs the microphone to hear your voice queries.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "SeekLens uses speech recognition to let you search by voice.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

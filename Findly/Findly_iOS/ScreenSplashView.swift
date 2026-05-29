@@ -20,7 +20,7 @@ struct ScreenSplashView: View {
 
             if showMainSplash {
                 ZStack {
-                    Color(.systemBackground).ignoresSafeArea()
+                    Color.white.ignoresSafeArea()
 
                     VStack(spacing: 12) {
                         Image("SplashLogo")
@@ -33,6 +33,7 @@ struct ScreenSplashView: View {
 
                         Text("SeekLens")
                             .font(.system(size: 44, weight: .bold, design: .rounded))
+                            .foregroundColor(.black)
                             .scaleEffect(animateLogo ? 1.0 : 0.6)
                             .opacity(animateLogo ? 1.0 : 0.0)
                             .animation(.interpolatingSpring(stiffness: 140, damping: 10).delay(0.25), value: animateLogo)
@@ -55,16 +56,18 @@ struct ScreenSplashView: View {
 
             if showWarningSplash {
                 ZStack {
-                    Color(.systemBackground).ignoresSafeArea()
+                    Color.white.ignoresSafeArea()
 
                     VStack(spacing: 16) {
                         Text("Important")
                             .font(.headline)
+                            .foregroundColor(.black)
                             .opacity(animateWarning ? 1.0 : 0.0)
                             .scaleEffect(animateWarning ? 1.0 : 0.9)
 
                         Text("SeekLens is not always accurate.\nPlease double-check predictions.")
                             .font(.subheadline)
+                            .foregroundColor(.black)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 32)
                             .opacity(animateWarning ? 1.0 : 0.0)

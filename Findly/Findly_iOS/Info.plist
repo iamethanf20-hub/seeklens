@@ -28,6 +28,10 @@
 	<string>SeekLens needs access to your camera to scan and identify items.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>SeekLens needs permission to save images to your photo library.</string>
+    <key>NSSpeechRecognitionUsageDescription</key>
+    <string>SeekLens uses speech recognition to let you search by voice.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>SeekLens needs the microphone to hear your voice queries.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>SeekLens needs access to your photo library to save and retrieve images.</string>
 	<key>UILaunchStoryboardName</key>

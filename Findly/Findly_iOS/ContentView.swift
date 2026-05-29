@@ -75,13 +75,14 @@ extension View {
             .background(
                 LinearGradient(
                     colors: primary
-                        ? [Color.blue, Color.purple]
-                        : [Color.gray.opacity(0.18), Color.gray.opacity(0.28)],
+                        ? [Color(red: 0.55, green: 0.36, blue: 0.96),
+                           Color(red: 0.30, green: 0.65, blue: 0.98)]
+                        : [Color.white.opacity(0.85), Color.white.opacity(0.95)],
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
                 )
             )
-            .foregroundColor(primary ? .white : .primary)
+            .foregroundColor(primary ? .white : .black)
             .clipShape(Capsule())
             .shadow(color: .black.opacity(0.15), radius: 8, x: 0, y: 4)
     }
@@ -98,9 +99,12 @@ struct SeekLensTitleBar: View {
                 .padding(.vertical, 8)
                 .padding(.horizontal, 24)
                 .background(
-                    LinearGradient(colors: [.orange, .pink],
-                                   startPoint: .topLeading,
-                                   endPoint: .bottomTrailing)
+                    LinearGradient(
+                        colors: [Color(red: 0.55, green: 0.36, blue: 0.96),  // purple
+                                 Color(red: 0.30, green: 0.65, blue: 0.98)], // blue
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
                 )
                 .foregroundColor(.white)
                 .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
@@ -132,6 +136,10 @@ struct ContentView: View {
     @State private var liveTextFilter: String = ""
     @State private var liveTextMatch: MatchMode = .contains
     @State private var liveTextPerWord: Bool = true
+    
+    //Microphone
+    @StateObject private var speech = SpeechRecognizer()
+    @State private var pendingAutoRun: Bool = false
 
     // Status
     @State private var isBusy = false
@@ -224,13 +232,21 @@ struct ContentView: View {
         .onAppear {
             usage.refreshMonthIfNeeded()
         }
+        .onChange(of: speech.isRecording) { recording in
+            if !recording && !speech.transcript.isEmpty {
+                Task { await handleTranscript(speech.transcript) }
+            }
+        }
+        .onChange(of: speech.errorText) { err in
+            if let err = err { errorText = err }
+        }
     }
 
     // MARK: - Top-level pieces
 
     private var backgroundGradient: some View {
         LinearGradient(
-            colors: [Color(.systemGray6), Color(.systemGray5)],
+            colors: [Color.white, Color(red: 0.97, green: 0.96, blue: 1.0)],
             startPoint: .top,
             endPoint: .bottom
         )
@@ -308,6 +324,7 @@ struct ContentView: View {
                     
                     viewport
                     controlButtons
+                    voiceButtonRow
                     statusSection
                 }
 
@@ -391,12 +408,27 @@ struct ContentView: View {
     private var liveTextControls: some View {
         VStack(spacing: 10) {
             HStack(spacing: 10) {
-                TextField("Filter text (leave empty to show all)", text: $liveTextFilter)
-                    .textFieldStyle(.roundedBorder)
-                    .textInputAutocapitalization(.never)
-                    .focused($isInputFocused)
-                    .submitLabel(.done)
-                    .onSubmit { isInputFocused = false }
+                ZStack(alignment: .leading) {
+                    if liveTextFilter.isEmpty {
+                        Text("Filter text (leave empty to show all)")
+                            .foregroundColor(.black.opacity(0.5))
+                            .padding(.horizontal, 12)
+                    }
+                    TextField("", text: $liveTextFilter)
+                        .textInputAutocapitalization(.never)
+                        .focused($isInputFocused)
+                        .submitLabel(.done)
+                        .onSubmit { isInputFocused = false }
+                        .foregroundColor(.black)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 10)
+                }
+                .background(Color.white)
+                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                )
 
                 Button("Clear") { liveTextFilter = "" }
                     .popStyle()
@@ -423,13 +455,27 @@ struct ContentView: View {
     private var owlControls: some View {
         if mode == .owl {
             HStack(spacing: 10) {
-                TextField("Enter query (e.g. mug, apple)", text: $query)
-                    .textFieldStyle(.roundedBorder)
-                    .textInputAutocapitalization(.never)
-                    .focused($isInputFocused)
-                    .submitLabel(.done)
-                    .onSubmit { isInputFocused = false }
-
+                ZStack(alignment: .leading) {
+                    if query.isEmpty {
+                        Text("Enter query (e.g. mug, apple)")
+                            .foregroundColor(.black.opacity(0.5))
+                            .padding(.horizontal, 12)
+                    }
+                    TextField("", text: $query)
+                        .textInputAutocapitalization(.never)
+                        .focused($isInputFocused)
+                        .submitLabel(.done)
+                        .onSubmit { isInputFocused = false }
+                        .foregroundColor(.black)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 10)
+                }
+                .background(Color.white)
+                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                )
                 Button("Clear") { query = "" }
                     .popStyle()
             }
@@ -442,12 +488,27 @@ struct ContentView: View {
         if mode == .ocr {
             VStack(spacing: 10) {
                 HStack(spacing: 8) {
-                    TextField("Enter query (comma-separated)", text: $ocrWords)
-                        .textFieldStyle(.roundedBorder)
-                        .textInputAutocapitalization(.never)
-                        .focused($isInputFocused)
-                        .submitLabel(.done)
-                        .onSubmit { isInputFocused = false }
+                    ZStack(alignment: .leading) {
+                        if ocrWords.isEmpty {
+                            Text("Enter query (comma-separated)")
+                                .foregroundColor(.black.opacity(0.5))
+                                .padding(.horizontal, 12)
+                        }
+                        TextField("", text: $ocrWords)
+                            .textInputAutocapitalization(.never)
+                            .focused($isInputFocused)
+                            .submitLabel(.done)
+                            .onSubmit { isInputFocused = false }
+                            .foregroundColor(.black)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 10)
+                    }
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                    )
 
                     Button("Clear") { ocrWords = "" }
                         .popStyle()
@@ -541,11 +602,30 @@ struct ContentView: View {
                     }
                 }
                 .font(.footnote.bold())
+                .foregroundColor(.black)
                 .padding(.vertical, 8)
                 .padding(.horizontal, 10)
-                .background(.thinMaterial, in: Capsule())
+                .background(Color.white, in: Capsule())
+                .overlay(
+                    Capsule().stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                )
             }
         }
+        .padding(.horizontal)
+    }
+    private var voiceButtonRow: some View {
+        Button {
+            Task { await toggleMic() }
+        } label: {
+            HStack {
+                Image(systemName: speech.isRecording ? "mic.fill" : "mic")
+                Text(speech.isRecording ? "Listening…" : "Voice")
+            }
+            .frame(maxWidth: .infinity)
+        }
+        .popStyle()
+        .disabled(mode == .liveText || isBusy)
+        .opacity((mode == .liveText || isBusy) ? 0.6 : 1.0)
         .padding(.horizontal)
     }
 
@@ -627,7 +707,42 @@ struct ContentView: View {
     private func runFindTapped() async {
         await runCurrentMode()
     }
+    private func toggleMic() async {
+        if speech.isRecording {
+            speech.stop()
+            await handleTranscript(speech.transcript)
+        } else {
+            pendingAutoRun = true
+            await speech.start()
+        }
+    }
 
+    private func handleTranscript(_ raw: String) async {
+        let extracted = SpeechRecognizer.extractQuery(from: raw)
+        guard !extracted.isEmpty else {
+            await MainActor.run {
+                status = "Didn't catch a query. Try \"find my keys\"."
+            }
+            return
+        }
+
+        await MainActor.run {
+            switch mode {
+            case .owl:
+                query = extracted
+            case .ocr:
+                ocrWords = extracted
+            case .liveText:
+                liveTextFilter = extracted
+            }
+            status = "Heard: \"\(extracted)\""
+        }
+
+        if pendingAutoRun && !photos.isEmpty && mode != .liveText {
+            pendingAutoRun = false
+            await runCurrentMode()
+        }
+    }
     private func runCurrentMode() async {
         // LiveText uses continuous camera preview, not static image
         if mode == .liveText {
@@ -951,13 +1066,13 @@ private struct DetectionViewport: View {
                             VStack(spacing: 10) {
                                 Image(systemName: "photo")
                                     .font(.system(size: 42, weight: .semibold))
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(.black.opacity(0.4))
                                 Text("No photos yet")
                                     .font(.headline)
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(.black)
                                 Text("Tap 'Add Photo' to capture images")
                                     .font(.footnote)
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(.black.opacity(0.7))
                             }
                         )
                         .padding(.horizontal, 6)
