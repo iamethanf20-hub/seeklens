@@ -358,10 +358,22 @@ struct ContentView: View {
             HStack {
                 Text("Photos (\(photos.count))")
                     .font(.headline)
-                    .foregroundColor(.primary)
-                
+                    .foregroundColor(.black)
+
+                Spacer()                       // ⬅️ NEW
+
+                if mode == .ocr {
+                    Picker("Language", selection: $ocrLang) {
+                        ForEach(OCRLanguage.allCases) { lang in
+                            Text(lang.rawValue).tag(lang)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .labelsHidden()
+                    .accessibilityLabel(Text("Language"))
+                }
+
                 Spacer()
-                
                 Button(action: {
                     photos.removeAll()
                     selectedPhotoIndex = 0
@@ -376,7 +388,6 @@ struct ContentView: View {
                 .popStyle()
             }
             .padding(.horizontal)
-            
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
                     ForEach(Array(photos.enumerated()), id: \.element.id) { index, photo in
@@ -401,7 +412,7 @@ struct ContentView: View {
                 .padding(.horizontal)
             }
         }
-    }
+}
 
     // ⬇️ UPDATED: Controls for Live Text mode with match and box level options
     @ViewBuilder
@@ -527,19 +538,6 @@ struct ContentView: View {
                             Text("Lines").tag(false)
                         }
                         .pickerStyle(.segmented)
-                    }
-
-                    HStack {
-                        Spacer()
-                        Picker("Language", selection: $ocrLang) {
-                            ForEach(OCRLanguage.allCases) { lang in
-                                Text(lang.rawValue).tag(lang)
-                            }
-                        }
-                        .pickerStyle(.menu)
-                        .labelsHidden()
-                        .accessibilityLabel(Text("Language"))
-                        Spacer()
                     }
                 }
             }
