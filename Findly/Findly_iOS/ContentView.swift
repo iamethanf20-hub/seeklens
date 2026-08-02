@@ -954,34 +954,44 @@ struct PhotoThumbnail: View {
     let photo: PhotoItem
     let isSelected: Bool
     let index: Int
-    
+
     var body: some View {
         VStack(spacing: 4) {
-            Image(uiImage: photo.image)
-                .resizable()
-                .scaledToFill()
-                .frame(width: 80, height: 80)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(isSelected ? Color.blue : Color.clear, lineWidth: 3)
+            Text("#\(index + 1)")
+                .font(.subheadline.bold())
+                .foregroundColor(isSelected ? .white : .black)
+                .frame(width: 34, height: 34)
+                .background(
+                    Circle()
+                        .fill(
+                            isSelected
+                                ? LinearGradient(
+                                    colors: [Color(red: 0.55, green: 0.36, blue: 0.96),
+                                             Color(red: 0.30, green: 0.65, blue: 0.98)],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                  )
+                                : LinearGradient(
+                                    colors: [Color.white, Color.white],
+                                    startPoint: .top,
+                                    endPoint: .bottom
+                                  )
+                        )
                 )
-                .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
-            
-            VStack(spacing: 2) {
-                Text("#\(index + 1)")
-                    .font(.caption2.bold())
-                    .foregroundColor(isSelected ? .blue : .secondary)
-                
-                if !photo.status.isEmpty {
-                    Text(photo.status)
-                        .font(.system(size: 9))
-                        .foregroundColor(.secondary)
-                        .lineLimit(1)
-                }
+                .overlay(
+                    Circle()
+                        .stroke(isSelected ? Color.clear : Color.gray.opacity(0.3), lineWidth: 1)
+                )
+                .shadow(color: .black.opacity(0.12), radius: 3, x: 0, y: 1)
+
+            if !photo.status.isEmpty {
+                Text(photo.status)
+                    .font(.system(size: 8))
+                    .foregroundColor(.secondary)
+                    .lineLimit(1)
             }
         }
-        .frame(width: 80)
+        .frame(width: 44)
     }
 }
 
