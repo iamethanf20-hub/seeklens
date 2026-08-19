@@ -662,13 +662,35 @@ struct ContentView: View {
                         .padding(.horizontal, 16)
                 }
                 .background(.thinMaterial)
-            } else if !iap.isSubscribed && adMobManager.isInitialized {
-                AdMobBannerView()
-                    .frame(height: 50)
-                    .background(.ultraThinMaterial)
+            } else if !iap.isSubscribed {
+                subscribeButton
             }
         }
         .padding(.bottom, 0)
+    }
+
+    private var subscribeButton: some View {
+        Button {
+            showPaywall = true
+        } label: {
+            HStack(spacing: 8) {
+                Image(systemName: "sparkles")
+                Text("Subscribe to Findly Premium")
+                    .font(.system(size: 16, weight: .bold, design: .rounded))
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 14)
+        }
+        .background(
+            LinearGradient(
+                colors: [Color(red: 0.55, green: 0.36, blue: 0.96),
+                         Color(red: 0.30, green: 0.65, blue: 0.98)],
+                startPoint: .leading,
+                endPoint: .trailing
+            )
+        )
+        .foregroundColor(.white)
+        .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: -2)
     }
 
     private var cameraSheet: some View {
